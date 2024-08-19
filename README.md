@@ -7,52 +7,43 @@
 [Usage](#usage)  
 [How-To-Windows](#how-to-windows)  
 
-This project was originally designed to sync the contents of my library and configuration directories for a self-hosted Calibre eBook instance. 
->In my use-case, I host the Calibre library on a RaspberryPi and backup the files to a Windows machine running WSL2. Check out [How To Windows](#how-to-windows) for suggestion(s).
+This project was originally designed to sync the contents of my library and configuration directories for a self-hosted Calibre eBook instance. This generic version can be modified to work for similar use, as well as anything that might need to be backed up on a regular basis. 
+>In my use-case, I host the Calibre library on a RaspberryPi and backup the files to a Windows machine running WSL2.  
+Check out [How To Windows](#how-to-windows) for suggestion(s).
 
-This generic version can be modified to work for similar use, as well as anything that might need to be backed up on a regular basis. 
-
-<hr>
-
-### Requirements  
- - Linux (including WSL)
+### -- Requirements --  
+ - Linux or WSL
  - rsync
  - [jq](https://jqlang.github.io/jq/) (JSON parser for linux)
 
-<hr>
+### -- Installation --
 
-### Installation
-Copy the `src` directory and its contents to your preferred location. The parent folder will be used to store the data, so it should be located *inside* the backups folder. 
-#### Examples:  
-##### *Linux*
- - `/home/{user}/MyBackups/src/`
- ##### *WSL*
-  - `/mnt/d/MyBackups/src/`
+Copy the contents to a subdirectory in your project folder.  
+The parent folder will be used to store the data.   
+Examples:  
+*Linux*: `/home/{user}/MyBackups/src/{files}`  
+*WSL*: `/mnt/d/MyBackups/src/{files}`
 
-<hr>
 
-### Config  
+### -- Config --  
 
 Edit the `config.json` file according to your source(s) and destination(s). Currently all fields need to be manually set.  
-The intention is to have a default, where you just set the `parent` directory (think /home/user/**PARENT**/src/run.sh/).   
+>*The intention is to have a default, where you just set the `parent` directory (think /home/user/**PARENT**/src/run.sh). Something like `--override-defaults`?*   
   
 | key | value | example/notes |  
 | --- | --- | --- |  
-| src1/2 | the full /path/to/source where your original files exist. | supports networked locations, such as `user@ip_addr:/home/user/source/` |  
-| dest1/2 | the full /path/to/destination where the copies of your content will go. | This is the target for rsync. `/home/user/MyBackups/live/{dest1}/` |  
+| src1/2 | the full /path/to/source where your original files exist. | supports networked locations, such as `user@ip_addr:/home/user/source/` (make sure you've send your ssh key to the source machine to auto-auth) |  
+| dest1/2 | This is the target for rsync. Requires the full path. |  `/home/user/MyBackups/live/{dest1}/` |  
 | storage | the directory where each backup will go. | This usually looks like `../MyBackups/storage/{Backup001}/` where `{Backups001}` is dynamically set by timestamp |
 
-<hr>
 
-### Usage  
+### -- Usage --  
 Try `./run.sh` from a terminal while in the `src` dir.
 
 
 > flags are not supported (yet)
 
-<hr>
-
-### How-To-Windows
+### -- How-To-Windows --
 Some of the features are provided by WSL, while some are included with Windows.  
  1) Make sure you have [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) and a distro installed. Ubuntu is easy  and works great.  
  - In a powershell, run `wsl --install`  
