@@ -1,0 +1,7 @@
+{
+	"src": "/path/to/your_source_dir/",
+	"dest": "/path/to/your_destination_dir/",
+	"src2": "/path/to/your_alt_source/",
+	"dest2": "/path/to/your_alt_destination/",
+	"storage": "/path/to/your_storage_dir/"
+}
